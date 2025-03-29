@@ -1,4 +1,4 @@
-// Configuración de Firebase
+// Inicialización de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyBCUhv7VZHVbt9BX3LsiMExAN8221w1ewc",
   authDomain: "fitdiary-5a109.firebaseapp.com",
@@ -7,78 +7,56 @@ const firebaseConfig = {
   messagingSenderId: "395312317076",
   appId: "1:395312317076:web:2cde259df866045f69ea81"
 };
+firebase.initializeApp(firebaseConfig);
 
-// Inicializar Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Referencia a la base de datos de Firestore
 const db = firebase.firestore();
 
-// Elementos del DOM
-const activityForm = document.getElementById("activity-form");
-const activityList = document.getElementById("activity-list");
+// Función para agregar una actividad al Firestore
+function addActivity() {
+    const activityName = document.getElementById("activity-name").value;
+    const activityDuration = document.getElementById("activity-duration").value;
+    const activityCalories = document.getElementById("activity-calories").value;
 
-// Función para agregar actividad a Firestore
-function addActivity(name, duration, calories) {
-    db.collection("activities").add({
-        name: name,
-        duration: duration,
-        calories: calories,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }).then(() => {
-        console.log("Actividad registrada");
-        fetchActivities();
-    }).catch((error) => {
-        console.error("Error al agregar actividad: ", error);
+    if (activityName && activityDuration && activityCalories) {
+        db.collection("activities").add({
+            nombre: activityName,
+            duracion: activityDuration,
+            calorias: activityCalories,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()  // Fecha y hora
+        })
+        .then(() => {
+            console.log("Actividad registrada correctamente");
+            fetchActivities();  // Recarga la lista de actividades
+        })
+        .catch((error) => {
+            console.error("Error al registrar la actividad: ", error);
+        });
+    } else {
+        alert("Por favor, completa todos los campos.");
+    }
+}
+
+// Función para mostrar las actividades
+function fetchActivities() {
+    db.collection("activities").orderBy("timestamp", "desc").get().then((querySnapshot) => {
+        const activitiesList = document.getElementById("activities-list");
+        activitiesList.innerHTML = ""; // Limpiar la lista
+
+        querySnapshot.forEach((doc) => {
+            const activity = doc.data();
+            const listItem = document.createElement("li");
+            listItem.textContent = `${activity.nombre} - ${activity.duracion} minutos - ${activity.calorias} calorías`;
+            activitiesList.appendChild(listItem);
+        });
     });
 }
 
-// Función para obtener las actividades desde Firestore
-function fetchActivities() {
-    activityList.innerHTML = ''; // Limpiar la lista antes de cargar
-    db.collection("activities").orderBy("timestamp", "desc").get()
-        .then((snapshot) => {
-            snapshot.forEach((doc) => {
-                const activity = doc.data();
-                const li = document.createElement("li");
-                li.innerHTML = `
-                    <strong>${activity.name}</strong><br>
-                    Duración: ${activity.duration} min | Calorías: ${activity.calories} kcal
-                `;
-                activityList.appendChild(li);
-            });
-        }).catch((error) => {
-            console.error("Error al obtener actividades: ", error);
-        });
-}
-
-// Manejar el envío del formulario
-activityForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const activityName = document.getElementById("activity-name").value;
-    const duration = document.getElementById("duration").value;
-    const calories = document.getElementById("calories").value;
-
-    if (activityName && duration && calories) {
-        addActivity(activityName, duration, calories);
-        activityForm.reset(); // Limpiar el formulario después de agregar la actividad
-    } else {
-        alert("Por favor, complete todos los campos.");
-    }
+// Manejar el formulario
+document.getElementById("activity-form").addEventListener("submit", (event) => {
+    event.preventDefault();
+    addActivity(); // Llamar a la función para agregar la actividad
 });
 
-// Cargar las actividades cuando se carga la página
+// Cargar las actividades al inicio
 window.onload = fetchActivities;
-
-db.collection("activities").add({
-    name: activityName,
-    duration: activityDuration,
-    calories: activityCalories,
-    timestamp: firebase.firestore.FieldValue.serverTimestamp()  // Fecha y hora automáticas
-})
-.then(() => {
-    console.log("Actividad registrada correctamente");
-    fetchActivities(); // Recarga la lista de actividades después de agregar una nueva
-})
-.catch((error) => {
-    console.error("Error al registrar la actividad: ", error);
-});
-
