@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitDiary - Registro de Actividad Física</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FitDiary</h1>
+            <p>Registra tu actividad física diaria</p>
+        </header>
+
+        <div class="form-container">
+            <h2>Registrar Actividad</h2>
+            <form id="activity-form">
+                <input type="text" id="activity-name" placeholder="Nombre de la actividad" required />
+                <input type="number" id="duration" placeholder="Duración (minutos)" required />
+                <input type="number" id="calories" placeholder="Calorías quemadas" required />
+                <button type="submit">Registrar</button>
+            </form>
+        </div>
+
+        <div class="activities-list">
+            <h2>Mis Actividades</h2>
+            <ul id="activity-list">
+                <!-- Las actividades registradas aparecerán aquí -->
+            </ul>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 FitDiary. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
