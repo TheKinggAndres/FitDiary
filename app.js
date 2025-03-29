@@ -67,3 +67,18 @@ activityForm.addEventListener("submit", (e) => {
 
 // Cargar las actividades cuando se carga la página
 window.onload = fetchActivities;
+
+db.collection("activities").add({
+    name: activityName,
+    duration: activityDuration,
+    calories: activityCalories,
+    timestamp: firebase.firestore.FieldValue.serverTimestamp()  // Fecha y hora automáticas
+})
+.then(() => {
+    console.log("Actividad registrada correctamente");
+    fetchActivities(); // Recarga la lista de actividades después de agregar una nueva
+})
+.catch((error) => {
+    console.error("Error al registrar la actividad: ", error);
+});
+
