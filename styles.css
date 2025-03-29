@@ -1,133 +1,96 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General body styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
-.container {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
+/* Center the content */
+h1, h2 {
     text-align: center;
+    color: #333;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border-radius: 10px;
+/* Style the form */
+form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    font-size: 2em;
-    margin-bottom: 5px;
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #444;
 }
 
-p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-}
-
-.form-container {
-    margin-bottom: 20px;
-}
-
-input {
+input[type="text"],
+input[type="number"] {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Button styling */
 button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 1.2em;
+    border-radius: 4px;
+    font-size: 18px;
     cursor: pointer;
-    width: 100%;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #45a049;
 }
 
-.activities-list {
-    margin-top: 30px;
-    text-align: left;
-}
-
-#activity-list {
-    list-style: none;
+/* Activity List Styling */
+#activities-list {
+    max-width: 600px;
+    margin: 20px auto;
     padding: 0;
+    list-style-type: none;
 }
 
-#activity-list li {
-    background-color: #f1f1f1;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-footer {
-    margin-top: 20px;
-    font-size: 0.8em;
+#activities-list li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
     color: #555;
 }
 
-/* Media Queries para asegurar que la interfaz sea responsive */
-
+/* Responsive design */
 @media (max-width: 600px) {
-    .container {
-        padding: 15px;
+    form {
+        width: 90%;
+        margin: 10px auto;
     }
 
-    h1 {
-        font-size: 1.8em;
-    }
-
-    p {
-        font-size: 1em;
-    }
-
-    input, button {
-        font-size: 1em;
-        padding: 12px;
+    #activities-list li {
+        font-size: 14px;
     }
 
     button {
-        font-size: 1.1em;
-    }
-}
-
-@media (max-width: 400px) {
-    h1 {
-        font-size: 1.6em;
-    }
-
-    p {
-        font-size: 0.9em;
-    }
-
-    button {
-        font-size: 1em;
-        padding: 10px;
+        font-size: 16px;
     }
 }
