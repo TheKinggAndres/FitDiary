@@ -11,13 +11,15 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    padding: 20px;
 }
 
 .container {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     padding: 20px;
     text-align: center;
 }
@@ -88,4 +90,44 @@ footer {
     margin-top: 20px;
     font-size: 0.8em;
     color: #555;
+}
+
+/* Media Queries para asegurar que la interfaz sea responsive */
+
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    p {
+        font-size: 1em;
+    }
+
+    input, button {
+        font-size: 1em;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 400px) {
+    h1 {
+        font-size: 1.6em;
+    }
+
+    p {
+        font-size: 0.9em;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 10px;
+    }
 }
